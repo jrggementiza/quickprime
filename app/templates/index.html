@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  	<div class="container h-100">
+  		<div class="row h-100 justify-content-center align-items-center">
+  			<div class="col-lg-8 col-md-10 mx-auto">
+
+				<form name="add_url" id="add_url" method="POST" action="{{ url_for('results') }}" novalidate> 
+
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="enter a url" name="url" id="url" required data-validation-required-message="Please enter a url.">
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-secondary" id="sendMessageButton">Prime</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+
+{% endblock content %}

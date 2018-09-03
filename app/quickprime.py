@@ -7,6 +7,10 @@ import matplotlib
 import csv
 
 
+# url getter: checks if website is 200, returns html
+# html cleaner: returns clean content
+# tokenizer: returns clean tokens
+
 def scraper(url):
 	# cleans html and returns a string
 	r = requests.get(url)
@@ -54,6 +58,9 @@ def main():
 	to_export = freq_dist(clean_tokens)
 	csv_exporter(to_export)
 
+def test(url):
+	print(f'{url} passed through quickprime!')
+	return url
 
 if __name__ == '__main__':
 	main()
