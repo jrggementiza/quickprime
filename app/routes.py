@@ -1,6 +1,6 @@
 from app import app
 
-from app.quickprime import test
+from app.quick_prime import main
 from flask import render_template, request, url_for, redirect
 
 
@@ -11,5 +11,7 @@ def index():
 @app.route('/results', methods=['POST'])
 def results():
 	url = request.form['url']
-	item = test(url)
-	return render_template('results.html', item=item)
+	items = main(url)
+	# print(items)
+
+	return render_template('results.html', items=items)

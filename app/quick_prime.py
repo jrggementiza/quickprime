@@ -1,18 +1,28 @@
 from bs4 import BeautifulSoup as bs
 import requests
 
+
 import nltk
 import matplotlib
 
 import csv
 
+# scraper
+# url getter: checks if website is 200, returns raw_html
+# html cleaner: returns clean_content (json?)
 
-# url getter: checks if website is 200, returns html
-# html cleaner: returns clean content
-# tokenizer: returns clean tokens
+# tokenizer: returns tokens
+
+# cleaner: returns clean_tokens
+
+# to display:
+# total word count
+# all words (ordered by)
+# top 10 words
+# rare 10 words
+# longest word
 
 def scraper(url):
-	# cleans html and returns a string
 	r = requests.get(url)
 	soup = bs(r.text, 'html.parser')
 	uncleaned_content = soup.find_all('p')
@@ -23,10 +33,13 @@ def scraper(url):
 
 
 def tokenizer(content):
-	# tokenizes, and returns clean  tokens
-	stopwords = [ word.strip().lower() for word in open("./stopwords.txt") ]
 	tokens = [ tok for tok in content.split() ]
-	clean_tokens = [tok for tok in tokens if len(tok.lower()) > 1 and (tok.lower() not in stopwords)]
+	
+	return tokens
+
+
+def cleaner(tokens, stopwords):
+	clean_tokens = [tok for tok in tokens if len(tok.lower()) > 1 and tok.lower() not in stopwords ]
 	
 	return clean_tokens
 
@@ -49,18 +62,22 @@ def csv_exporter(items):
 			writer.writerow(row)
 
 
-def main():
-	# url = "https://realpython.com/flask-by-example-part-3-text-processing-with-requests-beautifulsoup-nltk/"
-	url = "https://realpython.com/setting-up-sublime-text-3-for-full-stack-python-development/"
+def main(url):
+	stopwords = [ word.strip().lower() for word in open("./stopwords.txt") ]
+	
 	content = scraper(url)
-	clean_tokens = tokenizer(content)
+	tokens = tokenizer(content)
+	clean_tokens = cleaner(tokens, stopwords)
 
-	to_export = freq_dist(clean_tokens)
-	csv_exporter(to_export)
+	results = freq_dist(clean_tokens) #most frequent
+
+	return results
+
 
 def test(url):
 	print(f'{url} passed through quickprime!')
 	return url
+
 
 if __name__ == '__main__':
 	main()
