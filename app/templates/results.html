@@ -1,8 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-	{% for item in items %}
-	<h1>{{ item }} - {{ item.v }}</h1>
-	{% endfor %}
+
+<div class="container h-100">
+	<div class="row h-100">
+		<div class="col-lg-6">
+			{% if result != None %}
+			<img src="data:image/jpg;base64,{{ img }}" width="500">
+
+			{% endif %}
+		</div>
+		<div class="col-lg-6 overflow">
+			<table class="table table-borderless">
+				<thead>
+					<tr>
+						<th>Word</th>
+						<th>Frequency</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					{% for item in items %}
+					<tr>
+						<td>{{ item[0] }}</td>
+						<td>{{ item[1] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
 {% endblock content %}
